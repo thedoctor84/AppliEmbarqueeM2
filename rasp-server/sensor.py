@@ -29,13 +29,25 @@ def getDistance(front):
 	wp.digitalWrite(pins[position]["trigger"], 0)
 
 	start = time.time()
+	limitNoSignal = start + 0.2
 
-	while time.time() - start < 0.2:
+	# on considerera qu'il n'y a pas d'obstacle si un echo n'est pas recu avant 0.2s
+	while start < limitNoSignal:
 
+		start = time.time()
+		# Un ECHO est recu
 		if wp.digitalRead(pins[position]["echo"]) == 1:
 
-			timeInterval = time.time() - start
+
+			# On va attendre que l'echo repasse a 0
+			while wp.digitalRead(pins[position]["echo"]) == 1:
+
+				end = time.time()
+
+			timeInterval = end - start
 
 			return soundSpeed * timeInterval / 2
+
+
 
 	return -1

@@ -22,7 +22,12 @@ def initGpio():
 	wp.pinMode(38,1)
 	wp.pinMode(40,1)
 
-	# On fixe les pin echo en IN pour les telemetres
+	# Trigger Front
+	wp.pinMode(31,1)
+	# Trigger Back
+	wp.pinMode(29,1)
+
+	# On fixe les pin ECHO en IN pour les telemetres
 	wp.pinMode(33,0)
 	wp.pinMode(35,0)
 

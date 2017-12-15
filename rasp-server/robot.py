@@ -4,7 +4,7 @@ import time
 
 def test1():
 
-	#robot.turnAllWheels(True)
+	wheel.turnAllWheels(True)
 
 	direction = True
 
@@ -12,18 +12,20 @@ def test1():
 
 		distance = sensor.getDistance(direction)
 
-		if 0 <= distance && distance <= 0.2:
+		print("distance : " + str(distance) + "m")
 
-			robot.stopAllWheels()
+		if 0 <= distance and distance <= 0.2:
+
+			wheel.stopAllWheels()
 
 			time.sleep(1)
 
 			# affichage
-			if direction = True:
-				print("Obstacle à l'avant ! Le robot repart à l'arrière...")
+			if direction:
+				print("Obstacle a lavant - Le robot repart a larriere")
 			else:
-				print("Obstacle à l'arrière ! Le robot repart à l'avant...")
+				print("Obstacle a larriere - Le robot repart a lavant")
 
 			direction = not direction
 
-			#robot.turnAllWheels(direction)
+			wheel.turnAllWheels(direction)
