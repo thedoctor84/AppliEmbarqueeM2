@@ -4,7 +4,7 @@ import time
 
 def test1():
 
-	robot.turnAllWheels(True)
+	#robot.turnAllWheels(True)
 
 	direction = True
 
@@ -26,4 +26,4 @@ def test1():
 
 			direction = not direction
 
-			robot.turnAllWheels(direction)
+			#robot.turnAllWheels(direction)
