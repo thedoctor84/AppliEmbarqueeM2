@@ -38,6 +38,7 @@ def getDistance(front):
 		# Un ECHO est recu
 		if wp.digitalRead(pins[position]["echo"]) == 1:
 
+			end = time.time()
 
 			# On va attendre que l'echo repasse a 0
 			while wp.digitalRead(pins[position]["echo"]) == 1:
@@ -47,7 +48,5 @@ def getDistance(front):
 			timeInterval = end - start
 
 			return soundSpeed * timeInterval / 2
-
-
 
 	return -1
