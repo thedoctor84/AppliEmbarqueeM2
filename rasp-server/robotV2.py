@@ -1,87 +1,89 @@
-import wheel_v2 as wheel
+import wheelV2 as wheel
 import sensor
 import time
 
-class Robot:
+wheel.stopAll()
 
-	direction = ""
+#direction = wheel.updateDirection("forward")
 
-	def __init__():
+def updateAngle(angle, strength):
 
-		wheel.updateDirection("forward")
-		wheel.stopAll()
+	global direction
 
+	if angle <= 90:
 
-	def updateAngle(angle, strength):
+		if direction != "forward":
 
-		if angle < 90:
+			direction = wheel.updateDirection(True)
 
-			if direction != "forward":
+		newTarget = mapInterval(angle, 0, 90, 0, 1000) * strength / 100
 
-				changeDirection(True)
+		wheel.setTargetSpeed(0, newTarget)
+		wheel.setTargetSpeed(1, 1000)
+		wheel.setTargetSpeed(2, 1000)
+		wheel.setTargetSpeed(3, newTarget)
 
-			newTarget = mapInterval(angle, 0, 90, 0, 1000) * strength / 100
+	elif angle <= 180:
 
-			wheel.setTargetSpeed(0, newTarget)
-			wheel.setTargetSpeed(1, 1000)
-			wheel.setTargetSpeed(2, 1000)
-			wheel.setTargetSpeed(3, newTarget)
+		if direction != "forward":
 
-		elif angle < 180:
+			direction = wheel.updateDirection(True)
 
-			if direction != "forward":
+		newTarget = mapInterval(angle, 180, 90, 0, 1000) * strength / 100
 
-				changeDirection(True)
-
-			newTarget = mapInterval(angle, 180, 90, 0, 1000) * strength / 100
-
-			wheel.setTargetSpeed(0, 1000)
-			wheel.setTargetSpeed(1, newTarget)
-			wheel.setTargetSpeed(2, newTarget)
-			wheel.setTargetSpeed(3, 1000)
+		wheel.setTargetSpeed(0, 1000)
+		wheel.setTargetSpeed(1, newTarget)
+		wheel.setTargetSpeed(2, newTarget)
+		wheel.setTargetSpeed(3, 1000)
 
 
-		elif angle < 270:
+	elif angle <= 270:
 
-			if direction == "forward":
+		if direction == "forward":
 
-				changeDirection(False)
+			direction = wheel.updateDirection(False)
 
-			newTarget = mapInterval(angle, 180, 270, 0, 1000) * strength / 100
+		newTarget = mapInterval(angle, 180, 270, 0, 1000) * strength / 100
 
-			wheel.setTargetSpeed(0, 1000)
-			wheel.setTargetSpeed(1, newTarget)
-			wheel.setTargetSpeed(2, newTarget)
-			wheel.setTargetSpeed(3, 1000)
+		wheel.setTargetSpeed(0, 1000)
+		wheel.setTargetSpeed(1, newTarget)
+		wheel.setTargetSpeed(2, newTarget)
+		wheel.setTargetSpeed(3, 1000)
 
-		else:
+	else:
 
-			if direction == "forward":
+		if direction == "forward":
 
-				changeDirection(False)
+			direction = wheel.updateDirection(False)
 
-			newTarget = mapInterval(angle, 360, 270, 0, 1000) * strength / 100
+		newTarget = mapInterval(angle, 360, 270, 0, 1000) * strength / 100
 
-			wheel.setTargetSpeed(0, newTarget)
-			wheel.setTargetSpeed(1, 1000)
-			wheel.setTargetSpeed(2, 1000)
-			wheel.setTargetSpeed(3, newTarget)
+		wheel.setTargetSpeed(0, newTarget)
+		wheel.setTargetSpeed(1, 1000)
+		wheel.setTargetSpeed(2, 1000)
+		wheel.setTargetSpeed(3, newTarget)
+
+def updateSpeed():
+
+	for m in range(0, 4):
+
+		wheel.updateSpeed(m)
 
 
-	def mapInterval(n, start1, stop1, start2, stop2):
+def mapInterval(n, start1, stop1, start2, stop2):
 
-		return ((n - start1)/(stop1 - start1)) * (stop2 - start2) + start2
+	return ((n - start1)/(stop1 - start1)) * (stop2 - start2) + start2
 
 
-	def objectDetected():
+def objectDetected():
 
-		distance = sensor.getDistance(direction == "forward")
+	distance = sensor.getDistance(direction == "forward")
 
-		if 0 <= distance and distance <= 0.2:
+	if 0 <= distance and distance <= 0.2:
 
-			print("distance : " + str(distance) + "m")
+		print("distance : " + str(distance) + "m")
 
-			return True
+		return True
 
-		return False
+	return False
 

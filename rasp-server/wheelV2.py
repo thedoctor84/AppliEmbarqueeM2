@@ -55,29 +55,34 @@ def updateDirection(forward):
 
 	if forward:
 
-		for i in range(0, 3):
+		for i in range(0, 4):
 
 			wp.digitalWrite(wheels[i]["pins"]["forward"],  1)
 			wp.digitalWrite(wheels[i]["pins"]["backward"], 0)
 
-		direction = "forward"
+		print("going forward")
+
+		return "forward"
 
 	else:
 
-		for i in range(0, 3):
+		for i in range(0, 4):
 
 			wp.digitalWrite(wheels[i]["pins"]["forward"],  0)
 			wp.digitalWrite(wheels[i]["pins"]["backward"], 1)
 
-		direction = "backward"
+		print("going backward")
+		
+		return "backward"
 
 
-def setTargetSpeed(m, newTarget)
+
+def setTargetSpeed(m, newTarget):
 
 	wheels[m]["speed"]["target"] = newTarget
 
 
-def updateSpeed(m)
+def updateSpeed(m):
 	
 	if wheels[m]["speed"]["current"] < wheels[m]["speed"]["target"]:
 
@@ -90,12 +95,14 @@ def updateSpeed(m)
 	else:
 		return
 
-	setPWM(wheels[m]["speed"]["current"])
+	setPWM(m, wheels[m]["speed"]["current"])
 	
 
 def setPWM(m, pwm):
 
 	wp.pwmWrite(wheels[m]["pins"]["pwm"], pwm)
+
+	print("m:" + str(m) + "  pwm:" + str(pwm))
 
 
 def stopAll():
