@@ -100,15 +100,15 @@ def updateSpeed(m):
 
 def setPWM(m, pwm):
 
-	wp.pwmWrite(wheels[m]["pins"]["pwm"], pwm)
+	wp.softPwmWrite(wheels[m]["pins"]["pwm"], pwm)
 
-	print("m:" + str(m) + "  pwm:" + str(pwm))
+	#print("m:" + str(m) + "  pwm:" + str(pwm))
 
 
 def stopAll():
 	
 	for m in range(0, 4):
 
-		setPWM(m, 0)
+		print("#setPWM(m, 0)")
 
 	print("> wheels stopped")
