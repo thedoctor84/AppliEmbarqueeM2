@@ -101,3 +101,6 @@ def objectDetected():
 
 	return False
 
+def forceStop():
+
+	

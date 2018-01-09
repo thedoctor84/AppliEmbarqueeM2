@@ -15,6 +15,9 @@ pins = {
 # vitesse en m/s
 soundSpeed = 340
 
+# distance de détection d'un obstacle
+maxDistance = 0.1
+
 def getDistance(front):
 
 	if front:
