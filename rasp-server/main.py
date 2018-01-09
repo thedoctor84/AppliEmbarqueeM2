@@ -5,30 +5,36 @@ import time
 
 
 host = "192.168.137.199"		# Get local machine name
-port = 2010						# Reserve a port for your service.
+port = 2015						# Reserve a port for your service.
 
-soc = socket.socket()			# Create a socket object
+soc = None
 
-soc.bind((host, port))			# Bind to the port
+error = False
 
-def test():
+while not error:
 
-	soc.listen(2)							# Now wait for client connection.
-	print("Waiting for connection...")
+	try:
 
-	conn, addr = soc.accept()				# Establish connection with client.
-	print("Got connection from ", addr)
+		soc = socket.socket()					# Create a socket object
 
-	print("Waiting for messages...")
+		soc.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Option for reusing the same socket bindings
 
-	stop = False
+		soc.bind((host, port))					# Bind to the port
 
-	while not stop:
+		soc.listen(2)							# Now wait for client connection.
+		print("Waiting for connection...")
 
-		msg = conn.recv(8)
-		print("msg:" + msg)
+		conn, addr = soc.accept()				# Establish connection with client.
+		print("Got connection from ", addr)
 
-		if msg != "":
+		print("Waiting for messages...")
+
+		stop = False
+
+		while not stop:
+
+			msg = conn.recv(8)
+			print("msg:" + msg)
 
 			if msg.decode("utf-8") == "stop!!!\n":
 
@@ -39,10 +45,10 @@ def test():
 				msg = msg.decode("utf-8").strip()
 
 				spltMsg = msg.split("\n")
-				print(spltMsg)
+				#print(spltMsg)
 
 				result = spltMsg[len(spltMsg)-2].split(";")
-				print(result)
+				#print(result)
 
 				if robot.objectDetected():
 
@@ -55,10 +61,19 @@ def test():
 					except ValueError:
 						pass
 
-		robot.updateSpeed()
+					robot.updateSpeed()
 
-		time.sleep(0.25)
+		soc.close()			# Closes the socket
 
-	soc.close()			# Closes the socket
+		time.sleep(2)
 
-	test()				# Relaunches the server socket
+	except :
+
+		print("# exception caught !")
+
+		try:
+			soc.close()
+		except:
+			print("# socket not closed")
+		error = True
+#test()				# Relaunches the server socket

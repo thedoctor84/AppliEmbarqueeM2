@@ -15,7 +15,7 @@ pins = {
 # vitesse en m/s
 soundSpeed = 340
 
-# distance de détection d'un obstacle
+# distance de detection d'un obstacle
 maxDistance = 0.1
 
 def getDistance(front):
@@ -32,7 +32,7 @@ def getDistance(front):
 	wp.digitalWrite(pins[position]["trigger"], 0)
 
 	start = time.time()
-	limitNoSignal = start + 0.2
+	limitNoSignal = start + 0.1
 
 	# on considerera qu'il n'y a pas d'obstacle si un echo n'est pas recu avant 0.2s
 	while start < limitNoSignal:

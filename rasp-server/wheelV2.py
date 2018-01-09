@@ -49,7 +49,7 @@ wheels = [
 
 wp.wiringPiSetupPhys()
 
-transitionSpeed = 10
+transitionSpeed = 20
 
 def updateDirection(forward):
 
@@ -82,15 +82,20 @@ def setTargetSpeed(m, newTarget):
 	wheels[m]["speed"]["target"] = newTarget
 
 
+def setCurrentSpeed(m, newCurrent):
+
+	wheels[m]["speed"]["current"] = newCurrent
+
+
 def updateSpeed(m):
 	
 	if wheels[m]["speed"]["current"] < wheels[m]["speed"]["target"]:
 
-		wheels[m]["speed"]["current"] = min(wheels[m]["speed"]["current"] + transitionSpeed, wheels[m]["speed"]["target"])
+		setCurrentSpeed(m, min(wheels[m]["speed"]["current"] + transitionSpeed, wheels[m]["speed"]["target"]))
 
 	elif wheels[m]["speed"]["current"] > wheels[m]["speed"]["target"]:
 
-		wheels[m]["speed"]["current"] = max(wheels[m]["speed"]["current"] - transitionSpeed, wheels[m]["speed"]["target"])
+		setCurrentSpeed(m, max(wheels[m]["speed"]["current"] - transitionSpeed, wheels[m]["speed"]["target"]))
 
 	else:
 		return
@@ -101,7 +106,6 @@ def updateSpeed(m):
 def setPWM(m, pwm):
 
 	wp.softPwmWrite(wheels[m]["pins"]["pwm"], pwm)
-
 	#print("m:" + str(m) + "  pwm:" + str(pwm))
 
 
@@ -109,6 +113,8 @@ def stopAll():
 	
 	for m in range(0, 4):
 
-		print("#setPWM(m, 0)")
+		setPWM(m, 0)
+		setCurrentSpeed(m, 0)
+		setTargetSpeed(m, 0)
 
 	print("> wheels stopped")

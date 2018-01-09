@@ -17,7 +17,7 @@ def updateAngle(angle, strength):
 
 	if angle <= 90:
 
-		if direction != "forward":
+		if 0 < angle and direction != "forward":
 
 			direction = wheel.updateDirection(True)
 
@@ -93,7 +93,7 @@ def objectDetected():
 
 	distance = sensor.getDistance(direction == "forward")
 
-	if 0 <= distance and distance <= 0.2:
+	if 0 <= distance and distance <= 0.1:
 
 		print("distance : " + str(distance) + "m")
 
@@ -101,6 +101,7 @@ def objectDetected():
 
 	return False
 
+
 def forceStop():
 
-	
+	wheel.stopAll()
