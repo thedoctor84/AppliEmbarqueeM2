@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 public class AsyncJoystickCommands extends AsyncTask<String, Void, String> {
     private Socket socket;
-    private static final int SERVERPORT = 2010;
+    private static final int SERVERPORT = 2015;
     private static final String SERVER_IP = "192.168.137.199";
     public static boolean activityIsDestroyed;
     protected String doInBackground(String... args) {
@@ -51,7 +51,6 @@ public class AsyncJoystickCommands extends AsyncTask<String, Void, String> {
                     e.printStackTrace();
                 }
             }
-
             if(activityIsDestroyed) {
                 String message = "stop!!!";
                 System.out.println("MESSAGE="+message);
@@ -59,15 +58,11 @@ public class AsyncJoystickCommands extends AsyncTask<String, Void, String> {
                         new OutputStreamWriter(socket.getOutputStream(),"UTF-8")),true);
                 out.println(message);
             }
-
-            //dout.close();
-            //socket.close();
         } catch (UnknownHostException e1) {
             e1.printStackTrace();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-
         return null;//returns what you want to pass to the onPostExecute()
     }
 }
