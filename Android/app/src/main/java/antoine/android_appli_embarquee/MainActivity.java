@@ -45,7 +45,14 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        new Thread(new ClientThread()).start();
+        try{
+            new AsyncJoystickCommands().execute();
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //new Thread(new ClientThread()).start();
         int TIMEOUT = 10; //seconds
 
         mjpegView = findViewById(R.id.camera);
@@ -63,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             public void onMove(int angle, int strength) {
                 currentAngle = angle;
                 currentStrength = strength;
-                try {
+                /*try {
                     String result = angle+";"+strength;
                     byte[] utf8Bytes = result.getBytes("UTF-8");
                     int numberOfSpaces = 7 - utf8Bytes.length;
@@ -81,19 +88,25 @@ public class MainActivity extends AppCompatActivity {
                     e1.printStackTrace();
                 } catch (IOException e1) {
                     e1.printStackTrace();
-                }
+                }*/
             }
-        },250);
+        });
     }
 
-    class ClientThread implements Runnable {
+    @Override
+    public void onPause() {
+        super.onPause();
+        AsyncJoystickCommands.activityIsDestroyed=true; // Stop the infinite loop
+    }
+
+    /*class ClientThread implements Runnable {
 
         @Override
         public void run() {
             try {
                 InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
                 socket = new Socket(serverAddr, SERVERPORT);
-                /*while (!Thread.currentThread().isInterrupted()) {
+                while (!Thread.currentThread().isInterrupted()) {
                     try {
                         String result = currentAngle+";"+currentStrength;
                         byte[] utf8Bytes = result.getBytes("UTF-8");
@@ -110,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                }*/
+                }
             } catch (UnknownHostException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
@@ -119,5 +132,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    }
+    }*/
 }
