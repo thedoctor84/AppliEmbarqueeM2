@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         addListenerOnButton();
 
         WebView camera = (WebView) findViewById(R.id.camera);
-        camera.loadUrl("http://192.168.137.199/html/camera_for_android.php");
+        camera.loadUrl("http://192.168.137.199/html/cam_pic_new.php");
 
         JoystickView joystick = (JoystickView) findViewById(R.id.joystickView);
         joystick.setOnMoveListener(new JoystickView.OnMoveListener() {
