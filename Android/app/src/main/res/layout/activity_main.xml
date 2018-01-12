@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +9,9 @@
     <WebView
         android:id="@+id/camera"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+    </WebView>
 
     <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/joystickView"
@@ -18,11 +21,20 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="175dp"
-        custom:JV_backgroundColor="#009688"
-        custom:JV_borderColor="#00796B"
+        custom:JV_backgroundColor="#d80027"
+        custom:JV_borderColor="#A90027"
         custom:JV_borderWidth="4dp"
-        custom:JV_buttonColor="#FF6E40"
+        custom:JV_buttonColor="#FFFFFF"
         custom:JV_buttonSizeRatio="15%"
         custom:JV_fixedCenter="false" />
+
+    <ImageButton
+        android:id="@+id/cameraButton"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="240dp"
+        android:layout_toRightOf="@+id/joystickView"
+        android:background="@drawable/camera_logo" />
 
 </RelativeLayout>
